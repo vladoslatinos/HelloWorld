@@ -1,10 +1,15 @@
-
-
 var line = prompt('сколько строк');
-var j = " ";
-var star = "*";
+
+var star = "";
+
 for (var i = 0; i < line; i++) {
-  j += star;
-  console.log(j);
+  star += "\n" + '*';
+  for (var a = 1; a <= i; a++) {
+    star += '**';
 }
+  
+}
+alert(star);
+
+
 
