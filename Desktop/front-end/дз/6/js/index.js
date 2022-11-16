@@ -1,4 +1,4 @@
-/*var firstNumber = Number.parseInt(prompt("введите число"));
+var firstNumber = Number.parseInt(prompt("введите число"));
 var secondNumber = Number.parseInt(prompt("введите число"));
 var mathsSymbol = prompt("введите maths символ");
 var padSymbol = prompt("введите символ =");
@@ -21,7 +21,7 @@ if (padsSymbol === '=') {
   
  
 }
-alert(getResult(firstNumber, secondNumber, mathsSymbol, padSymbol, result));*/
+alert(getResult(firstNumber, secondNumber, mathsSymbol, padSymbol, result));
 
 
 
