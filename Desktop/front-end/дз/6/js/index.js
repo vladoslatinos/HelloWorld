@@ -35,7 +35,7 @@ var whichOne = Number.parseInt(prompt("c какого символа начат�
 
 function isCharPresent(isLine, isSymbol, isWhichOne) {
    
-  for (var a = isWhichOne; a < isLine.length; a++) {
+  for (var a = isWhichOne - 1; a < isLine.length; a++) {
     if (isLine[a] === isSymbol) {
       return true
     } 
@@ -59,7 +59,7 @@ var whichOnes = Number.parseInt(prompt("c какого символа начат
 
 function charIndexOf(isLine, isSymbol, isWhichOne) {
    
-  for (var a = isWhichOne; a < isLine.length; a++) {
+  for (var a = isWhichOne - 1; a < isLine.length; a++) {
     if (isLine[a] === isSymbol) {
       return a 
     } 
