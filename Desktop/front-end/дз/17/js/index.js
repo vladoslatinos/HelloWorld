@@ -1,103 +1,71 @@
-class Student { 
-  constructor(firstName, lastName, birthYear) { 
-    this.firstName = firstName; 
-    this.lastName = lastName; 
-    this.birthYear = birthYear; 
-    this.attendance = new Array(10).fill(null); 
-    this.marks = new Array(10).fill(null); 
-  } 
- 
-  getAge() { 
-    const currentYear = new Date().getFullYear(); 
-    return currentYear - this.birthYear; 
-  } 
- 
-  getAverageMark() { 
-    let sum = 0; 
-    let count = 0; 
-    for (let mark of this.marks) { 
-      if (mark !== null) { 
-        sum += mark; 
-        count++; 
-      } 
-    } 
-    return sum / count; 
-  } 
- 
-  present() { 
-    for (let i = 0; i < this.attendance.length; i++) { 
-      if (this.attendance[i] === null) { 
-        this.attendance[i] = true; 
-        break; 
-      } 
-    } 
-  } 
- 
-  absent() { 
-    for (let i = 0; i < this.attendance.length; i++) { 
-      if (this.attendance[i] === null) { 
-        this.attendance[i] = false; 
-        break; 
-      } 
-    } 
-  } 
-
-  mark(grade) { 
-    if (grade < 0 || grade > 10) { 
-      console.log("Error: mark should be between 0 and 10"); 
-      return; 
-    } 
-    for (let i = 0; i < this.marks.length; i++) { 
-      if (this.marks[i] === null) { 
-        this.marks[i] = grade; 
-        break; 
-      } 
-    } 
-    
-  } 
-  
- 
-  summary() { 
-    let attendanceSum = 0; 
-    let attendanceCount = 0; 
-    for (let attendance of this.attendance) { 
-      if (attendance !== null) { 
-        attendanceSum += attendance; 
-        attendanceCount++; 
-      } 
-    } 
-    const averageAttendance = attendanceSum / attendanceCount; 
-    const averageMark = this.getAverageMark(); 
- 
-    if (averageMark > 9 && averageAttendance > 0.9) { 
-      return "Ути какой молодчинка!"; 
-    } else if (averageMark > 9 || averageAttendance > 0.9) { 
-      return "Норм, но можно лучше"; 
-    } else { 
-      return "Редиска!"; 
-    } 
-  } 
+function Student(name, surname, birthYear) { 
+  this.name = name; 
+  this.surname = surname; 
+  this.birthYear = birthYear; 
+  this.attendance = new Array(10).fill(undefined); 
+  this.marks = new Array(10).fill(undefined); 
 } 
+
+
+
+function getAverage(array) { 
+  let count = 0; 
+  let result = array.reduce((acc, item) => { 
+      if (item != undefined) count++; 
+      if (item) { 
+          return typeof item == 'boolean' ? acc += 1 : acc += item; 
+      } 
+      return acc += 0; 
+  }, 0) / count; 
+
+  return +result.toFixed(1); 
+} 
+
+function addToArray(array, value) { 
+  let index = array.findIndex(index => index === undefined); 
+  if (index != -1) array.splice(index, 1, value); 
+  return array; 
+} 
+
+Student.prototype.age = function () { 
+  return new Date().getFullYear() - this.birthYear; 
+} 
+
+Student.prototype.gpa = function () { 
+  return getAverage(this.marks); 
+} 
+
+Student.prototype.present = function () { 
+  return addToArray(this.attendance, true); 
+} 
+
+Student.prototype.absent = function () { 
+  return addToArray(this.attendance, false); 
+} 
+
+Student.prototype.mark = function (grade) { 
+  if (grade > 0 && grade <= 10) return addToArray(this.marks, grade); 
+  throw 'The mark must be from 1 to 10!'; 
+} 
+
+Student.prototype.summary = function () { 
+  let gradeRes = getAverage(this.marks); 
+  let attendanceRes = getAverage(this.attendance); 
+  
+  
+  if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!'; 
+  if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
+  if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
+} 
+
+
+ let Student1 = new Student("John", "Doe", 2006); 
  
-const student1 = new Student("John", "Doe", 2000); 
-student1.present(); 
-student1.present(); 
-student1.present(); 
-student1.present();
-student1.present(); 
-student1.present();
-student1.present(); 
-student1.present();
-student1.present(); 
-student1.present();
-student1.mark(10);
-student1.mark(10); 
-student1.mark(10);
-student1.mark(10); 
-student1.mark(10);
-student1.mark(10); 
-student1.mark(10);
-student1.mark(10); 
-student1.mark(10);
-console.log(student1.summary());
-console.log(student1.getAverageMark());
+ Student1.present(); 
+ Student1.mark(10); 
+ Student1.mark(10); 
+ Student1.mark(6); 
+ console.log(Student1.age()); 
+ console.log(Student1.gpa()); 
+ console.log(Student1.summary()); 
+ console.log(Student1);
