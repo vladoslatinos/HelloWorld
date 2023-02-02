@@ -1,15 +1,17 @@
-function getPalindrome(n) {
+function palindrome(num) {
   let steps = 0;
-  let current = n;
-  while (!isPalindrome(current)) {
-    steps++;
-    current = current + Number(current.toString().split('').reverse().join(''));
-  }
-  return {result: current, steps};
-}
+  const reverseNum = (n) => parseInt(n.toString().split('').reverse().join(''));
 
-function isPalindrome(n) {
-  let str = n.toString();
-  return str === str.split('').reverse().join('');
+  function findPalindrome(num) {
+    steps++;
+    const reversed = reverseNum(num);
+    if (num === reversed) {
+      return num;
+    }
+    return findPalindrome(num + reversed);
+  }
+
+  const result = findPalindrome(num);
+  return { result, steps };
 } 
-console.log(getPalindrome(96))
+console.log(palindrome(96 + 69))
