@@ -11,4 +11,5 @@ function getPalindrome(n) {
 function isPalindrome(n) {
   let str = n.toString();
   return str === str.split('').reverse().join('');
-} console.log(getPalindrome(96))
+} 
+console.log(getPalindrome(96))
