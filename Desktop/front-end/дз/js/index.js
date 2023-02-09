@@ -57,5 +57,3 @@ const toDo = {
 
 
 };
-// localStorage.setItem('vlad', '42')
-// localStorage.removeItem('pljsuserid')
