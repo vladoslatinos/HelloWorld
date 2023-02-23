@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    section {
+    margin: 50px auto;
+    width: 300px;
+    height: 500px;
+    border-radius: 20px;
+    background: #000;
+    color: #fff;
+    font-family: Arial;
+    padding: 18px;
+    
+}
+.buttons {
+    display: grid;
+    grid-template-areas: 
+    "ac plus-minus percent division"
+    "seven eight nine multi"
+    "four five six minus"
+    "one two three plus"
+    "zero zero dot equal";
+    grid-gap: 7px;
+    justify-items: center;
+}
+.btn {
+    width: 60px;
+    height: 60px;
+    background: #333;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+.btn:hover {
+    filter: brightness(120%);
+}
+.btn:active {
+    filter: brightness(80%);
+}
+.btn.bg-grey {
+    background: #a6a6a6;
+}
+.btn.bg-orange {
+    background: #ff9501;
+}
+.btn.zero {
+    grid-area: zero;
+    width: 100%;
+    border-radius: 34px;
+}
+.calc-screen {
+  height: 125px;
+  padding: 10px;
+  display: grid;
+  justify-items: end;
+  align-items: end;
+}
+.calc-screen p {
+  text-align: right;
+  font-size: 4rem;
+  margin: 0;
+}
+
+
+  </style>
+
+  <title></title>
+</head>
+<body>
+    
+    <script  type="text/javascript" >
+const arr = ["=",".",0,"+",3,2,1,"-",6,5,4,"x",9,8,7,"/","%","+/-","ac"]
+const innerDiv = document.createElement('div');
+
+const calcScreen = document.createElement('div');
+const p = document.createElement('p');
+
+calcScreen.appendChild(p);
+p.innerText = 0
+calcScreen.classList.add('calc-screen')
+
+
+for (const item of arr) {
+    const el = document.createElement('div')
+    el.textContent = item
+    innerDiv.prepend(el)
+
+    el.classList.add('btn')
+    if (el.innerText === "ac") {
+      el.classList.add('bg-grey')
+    }
+    if (el.innerText === "+/-") {
+      el.classList.add('bg-grey')
+    }
+    if (el.innerText === "%") {
+      el.classList.add('bg-grey')
+    }
+    if (el.innerText === "/") {
+      el.classList.add('bg-orange')
+    }
+    if (el.innerText === "=") {
+      el.classList.add('bg-orange')
+    }
+    if (el.innerText === "+") {
+      el.classList.add('bg-orange')
+    }
+    if (el.innerText === "-") {
+      el.classList.add('bg-orange')
+    }
+    if (el.innerText === "x") {
+      el.classList.add('bg-orange')
+    }
+    if (el.innerText === "0") {
+      el.classList.add('zero')
+    }
+    
+    
+}
+
+
+const section = document.createElement('section');
+section.appendChild(calcScreen);
+section.appendChild(innerDiv);
+
+    
+document.body.appendChild(section);
+innerDiv.classList.add('buttons')
+
+
+    </script>
+</body>
+
+</html>
