@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    section {
+    margin: 50px auto;
+    width: 300px;
+    height: 500px;
+    border-radius: 20px;
+    background: #000;
+    color: #fff;
+    font-family: Arial;
+    padding: 18px;
+    
+}
+.buttons {
+    display: grid;
+    grid-template-areas: 
+    "ac plus-minus percent division"
+    "seven eight nine multi"
+    "four five six minus"
+    "one two three plus"
+    "zero zero dot equal";
+    grid-gap: 7px;
+    justify-items: center;
+}
+.btn {
+    width: 60px;
+    height: 60px;
+    background: #333;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+.btn:hover {
+    filter: brightness(120%);
+}
+.btn:active {
+    filter: brightness(80%);
+}
+.btn.bg-grey {
+    background: #a6a6a6;
+}
+.btn.bg-orange {
+    background: #ff9501;
+}
+.btn.zero {
+    grid-area: zero;
+    width: 100%;
+    border-radius: 34px;
+}
+.calc-screen {
+  height: 125px;
+  padding: 10px;
+  display: grid;
+  justify-items: end;
+  align-items: end;
+}
+.calc-screen p {
+  text-align: right;
+  font-size: 4rem;
+  margin: 0;
+}
+
+
+  </style>
+
+  <title></title>
+</head>
+<body>
+    
+    <script  type="text/javascript" >
+const arr = [
+  {
+   buttonValue: "=",
+    className: "equal",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+  },
+  {
+   buttonValue: ".",
+    className: "dot",
+    styleClassName: "btn",
+  },
+  {
+      buttonValue: "0",
+      className: "zero",
+      styleClassName: "btn",
+  },
+  {
+   buttonValue: "+",
+   className: "plus",
+   styleClassName: "btn",
+   colorClassName: "bg-orange"
+  },
+  {
+      buttonValue: "3",
+      className: "three",
+      styleClassName: "btn",
+  },
+  {
+      buttonValue: "2",
+      className: "two",
+      styleClassName: "btn",
+  },
+  {
+      buttonValue: "1",
+      className: "one",
+      styleClassName: "btn",
+      
+  },
+  {
+    buttonValue: "-",
+    className: "minus",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+    
+  },
+  {
+    buttonValue: "6",
+    className: "six",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "5",
+    className: "five",
+    styleClassName: "btn",
+    
+  },
+  {
+    buttonValue: "4",
+    className: "four",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "x",
+    className: "multi",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+   
+  },
+  { 
+   buttonValue: "9",
+   className: "nine",
+   styleClassName: "btn",
+    
+  },
+  { 
+    buttonValue: "8",
+    className: "eight",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "7",
+    className: "seven",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "/",
+    className: "division",
+    styleClassName: "btn",
+    colorClassName: "bg-orange",
+  },
+  {
+    buttonValue: "%",
+    className: "percent",
+    styleClassName: "btn",
+    colorClassName: "bg-grey",
+  },
+  {
+   buttonValue: "+/-",
+    className: "plus-minus",
+    styleClassName: "btn",
+    colorClassName: "bg-grey"
+  },
+  {
+    buttonValue: "ac",
+    className: "ac",
+    styleClassName: "btn",
+    colorClassName: "bg-grey"
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+]
+
+
+
+
+const innerDiv = document.createElement('div');
+
+const calcScreen = document.createElement('div');
+const p = document.createElement('p');
+
+calcScreen.appendChild(p);
+p.innerText = 0;
+calcScreen.classList.add('calc-screen');
+
+
+
+arr.forEach(el => {
+  const div = document.createElement('div');
+
+  div.classList.add(el.className);
+  div.classList.add(el.colorClassName);
+  div.classList.add(el.styleClassName);
+  div.innerText = el.buttonValue;
+  innerDiv.prepend(div);
+  
+})
+
+
+const section = document.createElement('section');
+section.appendChild(calcScreen);
+section.appendChild(innerDiv);
+
+    
+document.body.appendChild(section);
+innerDiv.classList.add('buttons');
+
+let a = ''; 
+let b = ''; 
+let sign = ''; 
+let finish  = false;
+
+const digit = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+const action = ['-', '+', 'x', '/'];
+
+
+const out = document.querySelector('.calc-screen p');
+
+function clearAll () {
+    a = ''; 
+    b = ''; 
+    sign = ''; 
+    finish = false;
+    out.textContent = 0;
+}
+
+document.querySelector('.ac').onclick = clearAll;
+
+document.querySelector('.buttons').onclick = (event) => {
+    
+    if(!event.target.classList.contains('btn')) return;
+    
+    if(event.target.classList.contains('ac')) return;
+
+    out.textContent = '';
+    
+    const key = event.target.textContent;
+
+    
+    if (digit.includes(key)) {
+        if (b ==='' && sign === '') {
+            a += key;
+            
+            out.textContent = a;
+        }
+        else if (a!=='' && b!=='' && finish) {
+            b = key;
+            finish = false;
+            out.textContent = b;
+        }
+        else {
+            b += key;
+            out.textContent = b;
+        }
+        
+        return;
+    }
+
+     
+     if (action.includes(key)) {
+        sign = key;
+        out.textContent = sign;
+        
+        return;
+    }
+
+    
+    if (key === '=') {
+        if (b ==='') b = a;
+        switch (sign) {
+            case "+":
+                a = (+a) + (+b);
+                break;
+            case "-":
+                a = a - b;
+                break;
+            case "x":
+                a = a * b;
+                break;
+            case "/":
+                if (b === '0') {
+                    out.textContent = 'Ошибка';
+                    a = '';
+                    b = '';
+                    sign = '';
+                    return;
+                }
+                a = a / b;
+                break;
+        }
+        finish = true;
+        out.textContent = a;
+        
+    }
+
+}
+
+    </script>
+</body>
+
+</html>
