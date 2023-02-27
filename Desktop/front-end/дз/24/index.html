@@ -78,7 +78,135 @@
 <body>
     
     <script  type="text/javascript" >
-const arr = ["=",".",0,"+",3,2,1,"-",6,5,4,"x",9,8,7,"/","%","+/-","ac"]
+const arr = [
+  {
+   buttonValue: "=",
+    className: "equal",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+  },
+  {
+   buttonValue: ".",
+    className: "dot",
+    styleClassName: "btn",
+  },
+  {
+      buttonValue: "0",
+      className: "zero",
+      styleClassName: "btn",
+  },
+  {
+   buttonValue: "+",
+   className: "plus",
+   styleClassName: "btn",
+   colorClassName: "bg-orange"
+  },
+  {
+      buttonValue: "3",
+      className: "three",
+      styleClassName: "btn",
+  },
+  {
+      buttonValue: "2",
+      className: "two",
+      styleClassName: "btn",
+  },
+  {
+      buttonValue: "1",
+      className: "one",
+      styleClassName: "btn",
+      
+  },
+  {
+    buttonValue: "-",
+    className: "minus",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+    
+  },
+  {
+    buttonValue: "6",
+    className: "six",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "5",
+    className: "five",
+    styleClassName: "btn",
+    
+  },
+  {
+    buttonValue: "4",
+    className: "four",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "x",
+    className: "multi",
+    styleClassName: "btn",
+    colorClassName: "bg-orange"
+   
+  },
+  { 
+   buttonValue: "9",
+   className: "nine",
+   styleClassName: "btn",
+    
+  },
+  { 
+    buttonValue: "8",
+    className: "eight",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "7",
+    className: "seven",
+    styleClassName: "btn",
+  },
+  {
+    buttonValue: "/",
+    className: "division",
+    styleClassName: "btn",
+    colorClassName: "bg-orange",
+  },
+  {
+    buttonValue: "%",
+    className: "percent",
+    styleClassName: "btn",
+    colorClassName: "bg-grey",
+  },
+  {
+   buttonValue: "+/-",
+    className: "plus-minus",
+    styleClassName: "btn",
+    colorClassName: "bg-grey"
+  },
+  {
+    buttonValue: "ac",
+    className: "ac",
+    styleClassName: "btn",
+    colorClassName: "bg-grey"
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+]
+
+
+
+
 const innerDiv = document.createElement('div');
 
 const calcScreen = document.createElement('div');
@@ -89,42 +217,17 @@ p.innerText = 0
 calcScreen.classList.add('calc-screen')
 
 
-for (const item of arr) {
-    const el = document.createElement('div')
-    el.textContent = item
-    innerDiv.prepend(el)
 
-    el.classList.add('btn')
-    if (el.innerText === "ac") {
-      el.classList.add('bg-grey')
-    }
-    if (el.innerText === "+/-") {
-      el.classList.add('bg-grey')
-    }
-    if (el.innerText === "%") {
-      el.classList.add('bg-grey')
-    }
-    if (el.innerText === "/") {
-      el.classList.add('bg-orange')
-    }
-    if (el.innerText === "=") {
-      el.classList.add('bg-orange')
-    }
-    if (el.innerText === "+") {
-      el.classList.add('bg-orange')
-    }
-    if (el.innerText === "-") {
-      el.classList.add('bg-orange')
-    }
-    if (el.innerText === "x") {
-      el.classList.add('bg-orange')
-    }
-    if (el.innerText === "0") {
-      el.classList.add('zero')
-    }
-    
-    
-}
+arr.forEach(el => {
+  const div = document.createElement('div')
+
+  div.classList.add(el.className)
+  div.classList.add(el.colorClassName)
+  div.classList.add(el.styleClassName)
+  div.innerText = el.buttonValue
+  innerDiv.prepend(div)
+  
+})
 
 
 const section = document.createElement('section');
