@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+  <title></title>
+</head>
+<body>
+    
+    <script  type="text/javascript" >
+      class Movie { 
+  constructor(title, director, genre) { 
+    this.title = title; 
+    this.director = director; 
+    this.genre = genre; 
+  } 
+} 
+ 
+class MovieList { 
+  constructor() { 
+    this.movies = []; 
+  } 
+ 
+  addMovie(title, director, genre) { 
+    this.movies.push(new Movie(title, director, genre)); 
+  } 
+ 
+  *[Symbol.iterator]() { 
+    let uniqueTitles = new Set(); 
+    for (let movie of this.movies) { 
+      if (!uniqueTitles.has(movie.title)) { 
+        uniqueTitles.add(movie.title); 
+        yield movie; 
+      } 
+    } 
+  } 
+ 
+  filterByGenre(genre) { 
+    return this.movies.filter(movie => movie.genre.includes(genre)); 
+  } 
+} 
+ 
+const movieList = new MovieList(); 
+movieList.addMovie("The Shawshank Redemption", "Frank Darabont", ["drama", "crime"]); 
+movieList.addMovie("The Godfather", "Francis Ford Coppola", ["drama", "crime"]); 
+movieList.addMovie("The Dark Knight", "Christopher Nolan", ["action", "crime"]); 
+movieList.addMovie("The Dark Knight2", "Christopher Nolan", ["action", "crime"]); 
+movieList.addMovie("12 Angry Men", "Sidney Lumet", ["drama"]); 
+movieList.addMovie("Schindler's List", "Steven Spielberg", ["drama", "history"]); 
+ 
+
+for (let movie of movieList) { 
+  console.log(movie.title); 
+} 
+ 
+
+const dramaMovies = movieList.filterByGenre("action"); 
+console.log(dramaMovies);
+
+    </script>
+</body>
+
+</html>
