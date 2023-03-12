@@ -1,41 +1,69 @@
+const toDoList = {
+                _listTask: [
+                    { title: 'Homework', text: 'finish', status: false }
+                ],
 
+                get listTask() {
+                    return this._listTask;
+                },
 
+                set listTask(value) {
+                    throw 'To change the listTask use methods!';
+                },
 
-const func = (arg) => { 
-  const sumValue = 1000 * arg 
+                add(title, text) {
+                    const note = {
+                        title,
+                        text,
+                        status: false,
+                    }
 
-return sumValue 
-} 
+                    if (this.checkUniq(title)) {
+                        this.listTask.push(note);
+                    }
+                },
 
-const cacheValues = new Map() 
-const MAX_CASH_LIMIT = 5 
+                checkUniq(title) {
+                    return !this.listTask.find(note => note.title === title);
+                },
 
-const cache = (arg, fn) => { 
-  if(cacheValues.has(arg)) { 
-    console.log("cache value") 
-    return cacheValues.get(arg) 
-} 
-else { 
-    const funcValue = fn(arg) 
+                remove(title) {
+                    this.listTask.forEach(item => {
+                        if (item.title == title) {
+                            item.status = !item.status;
+                        }
+                    })
+                },
 
-  if(!funcValue) { 
-      console.log("function does not return any value") 
+                delete(title) {
+                    const index = this.listTask.findIndex(note => note.title == title);
 
-    return 
-  } 
+                    this.listTask.splice(index, 1);
+                },
 
-  if(cacheValues.size === MAX_CASH_LIMIT) { 
-      const oldestKey = cacheValues.keys().next().value 
+                countTask() {
+                    return this.listTask.reduce((info, note) => {
+                        if (!info.total) {
+                            info.total = this.listTask.length;
+                        }
 
-      cacheValues.delete(oldestKey) 
-  } 
+                        if (!info[note.status]) {
+                            info[note.status] = 0;
+                        }
 
-  console.log("real value") 
-  cacheValues.set(arg, funcValue)  
+                        info[note.status]++;
 
-  return funcValue 
-} 
-}  
+                        return info;
+                    }, {});
+                },
+            }
 
+            Object.defineProperties(toDoList, {
+                add: { enumerable: false },
+                checkUniq: { enumerable: false },
+                remove: { enumerable: false },
+                delete: { enumerable: false },
+                countTask: { enumerable: false },
+            });
 
-
+            Object.freeze(toDoList);
