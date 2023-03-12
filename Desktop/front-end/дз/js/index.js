@@ -1,59 +1,69 @@
-const toDo = {
-  list: [],
-  
-      add(title, text) {
-        const note = {
-          title,
-          text,
-          completed: false
-        };
+const toDoList = {
+                _listTask: [
+                    { title: 'Homework', text: 'finish', status: false }
+                ],
 
-        if (this.checkUniq(title)) {
-          this.list.push(note);
-        }
-        
-      },
+                get listTask() {
+                    return this._listTask;
+                },
 
-      remove(title) {
-         this.list = this.list.filter(note => note.title !== title);
-      },
+                set listTask(value) {
+                    throw 'To change the listTask use methods!';
+                },
 
-      toggl(title) {
-        this.list.map(note => {
-          if (note.title === title) {
-            note.completed = !note.completed
-          }
-          return note;
-        })
-      },
+                add(title, text) {
+                    const note = {
+                        title,
+                        text,
+                        status: false,
+                    }
 
+                    if (this.checkUniq(title)) {
+                        this.listTask.push(note);
+                    }
+                },
 
+                checkUniq(title) {
+                    return !this.listTask.find(note => note.title === title);
+                },
 
+                remove(title) {
+                    this.listTask.forEach(item => {
+                        if (item.title == title) {
+                            item.status = !item.status;
+                        }
+                    })
+                },
 
-      info() {
-          return this.list.reduce((info, note) => {
-            if (!info.total) {
-              info.total = this.list.length;
+                delete(title) {
+                    const index = this.listTask.findIndex(note => note.title == title);
+
+                    this.listTask.splice(index, 1);
+                },
+
+                countTask() {
+                    return this.listTask.reduce((info, note) => {
+                        if (!info.total) {
+                            info.total = this.listTask.length;
+                        }
+
+                        if (!info[note.status]) {
+                            info[note.status] = 0;
+                        }
+
+                        info[note.status]++;
+
+                        return info;
+                    }, {});
+                },
             }
 
-            if (!info[note.completed]) {
-              info[note.completed] = 1;
-            } else {
-              info[note.completed]++;
-            }
+            Object.defineProperties(toDoList, {
+                add: { enumerable: false },
+                checkUniq: { enumerable: false },
+                remove: { enumerable: false },
+                delete: { enumerable: false },
+                countTask: { enumerable: false },
+            });
 
-            return info;
-          }, {})
-      }, 
-
-
-
-
-
-      checkUniq(title) {
-        return !this.list.find(note => note.title === title);
-      }
-
-
-
-};
+            Object.freeze(toDoList);
