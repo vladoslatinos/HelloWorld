@@ -1,24 +1,41 @@
 const menuList = {  burger: [
-    {      name: '🍔',
-      time: 3000    },
-    {      name: '🍟',
-      time: 1000    },
-    {      name: '🥤',
-      time: 500    }
-  ],  chicken: [
-    {      name: '🍗',
-      time: 5000    },
-    {      name: '🥔',
-      time: 2000    },
-    {      name: '🍺',
-      time: 1500    }
+    {      
+        name: '🍔',
+      time: 3000    
+    },
+    {      
+        name: '🍟',
+      time: 1000    
+    },
+    {      
+        name: '🥤',
+      time: 500    
+    }
+  ],  
+     chicken: [
+    {      
+        name: '🍗',
+      time: 5000    
+    },
+    {      
+        name: '🥔',
+      time: 2000    
+    },
+    {      
+        name: '🍺',
+      time: 1500    
+    }
   ],  avocado: [
-    {      name: '🥑',
-      time: 3000    },
+    {      
+        name: '🥑',
+      time: 3000    
+    },
     {
-      name: '🍚',      time: 5000
+      name: '🍚',      
+        time: 5000
     },    {
-      name: '🧉',      time: 2000
+      name: '🧉',      
+        time: 2000
     }  ]
 };
 function createOrder(menuItem) {  
